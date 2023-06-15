@@ -1,3 +1,22 @@
+import Api from"./api.js";
+const api = new Api();
+// render UI
+const renderUI = (data)=>{
+    let content = "";
+    if(data&&data.length > 0){
+        data.forEach((phone)=>{
+            content += `
+            <div class="product-box">
+            <img border-radius="5px" margin-bottom="0.5rem" width="100%" height="auto" src="${phone.img}">
+            <h2 class="product-title">${phone.name}</h2>
+            <span class="price">$${phone.price}</span>
+            <i class='bx bx-shopping-bag add-cart' ></i>
+        </div>
+            `;
+        });
+        document.getElementById("t-body").innerHTML = content;
+    } 
+}
 //Cart
 let cartIcon = document.querySelector("#cart-icon");
 let cart = document.querySelector(".cart");
@@ -37,7 +56,6 @@ function ready(){
     for(var i = 0;i < addCart.length;i++){
         var button = addCart[i];
         button.addEventListener('click',addCartClicker);
-       
     }
 //Buy Button Work
 document.getElementsByClassName("btn-buy")[0].addEventListener('click', buyButtonClicked);
@@ -106,7 +124,7 @@ var cartBoxContent = `
                         <i class='bx bxs-trash cart-remove' ></i>
 `;
 cartShopBox.innerHTML = cartBoxContent;
-cartItems.append(cartShopBox)
+cartItems.append(cartShopBox);
 cartShopBox.getElementsByClassName("cart-remove")[0].addEventListener('click',removeCartItem)
 cartShopBox.getElementsByClassName("cart-quantity")[0].addEventListener('change',quantityChanged)
 setLocalStorage();
@@ -181,3 +199,36 @@ function updateCartIcon(){
     var cartIcon = document.querySelector('#cart-icon')
     cartIcon.setAttribute('data-quantity',quantity);
 }
+// GET API
+document.getElementById("Loai").addEventListener("change", async()=>{
+    const value = document.getElementById('Loai').value;
+    const result = await api.callApi("PHONE","GET",null)
+    if(result.status == 200 && result.statusText === "OK"){
+        console.log(result.data);
+    }
+})
+const getPhone = ()  =>{
+    api.callApi("PHONE", "GET",null)
+    .then((re)=>{
+        renderUI(re.data)
+        console.log(re.data)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
+getPhone();
+
+document.getElementById("Loai").addEventListener("change",async()=>{
+    const value = document.getElementById("Loai").value;
+    const result = await api.callApi("PHONE","GET",null);
+    if(result.status === 200 && result.statusText ==="OK"){
+        //success
+        console.log(result.data);
+        let mang = result.data;
+        if(value !== "all"){
+        mang = result.data.filter((phone) => phone.type ===value);
+    }
+        renderUI(mang);
+    }
+})

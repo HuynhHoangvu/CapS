@@ -205,7 +205,7 @@ text-transform: uppercase;
 }
 .shop-content{
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,auto));
+    grid-template-columns: repeat(4,minmax(220px,auto));
     gap: 1.5rem;
 }
 /* Product */
@@ -224,17 +224,12 @@ text-transform: uppercase;
     color: #2d2e37;
     
 }
-.product-img{
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-}
+
 .product-title{
     font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;
-    margin-bottom: 0.8rem;
+    margin-bottom: 2.8rem;
 }
 .price{
     position: absolute;
@@ -310,4 +305,8 @@ text-transform: uppercase;
      width: 100%;
     }
 
+}
+
+.div-select{
+    padding-bottom:2rem ;
 }
