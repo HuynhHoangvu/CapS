@@ -83,9 +83,9 @@ function updateProduct(id) {
     var product = layThongTinNguoiDung(id);
 
     axios({
-            url: `https://64709e373de51400f724a075.mockapi.io/PHONE/${PHONE.id}`,
+            url: `https://64709e373de51400f724a075.mockapi.io/PHONE/${product.id}`,
             method: "PUT",
-            data: PHONE,
+            data:product,
         })
         .then(function() {
             //fetch data
